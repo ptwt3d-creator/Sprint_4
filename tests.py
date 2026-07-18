@@ -64,3 +64,15 @@ class TestBooksCollector:
 
         assert book in collector.get_list_of_favorites_books()
 
+    def test_get_books_with_specific_genre_add_and_get_book(self):
+        collector = BooksCollector()
+        book = 'Дневник кота-убийцы'
+
+        collector.add_new_book(book)
+        assert book in collector.books_genre, 'Книга не добавилась в books_genre - необходимо для продолжения теста'
+
+        collector.set_book_genre(book, 'Комедии')
+        assert collector.books_genre[book] in collector.genre , 'Книге в books_genre не добавился genre - необходимо для продолжения теста'
+        
+        assert collector.get_book_genre(book) == collector.books_genre[book]
+
