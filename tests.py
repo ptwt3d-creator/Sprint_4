@@ -39,3 +39,16 @@ class TestBooksCollector:
 
         assert 'Букварь' in collector.favorites
 
+    def test_delete_book_from_favorites_add_and_del_book(self):
+        collector = BooksCollector()
+        book = 'Букварь'
+
+        collector.add_new_book(book)
+        assert book in collector.books_genre, 'Книга не добавилась в books_genre - необходимо для продолжения теста'
+        
+        collector.add_book_in_favorites(book)
+        assert book in collector.favorites, 'Книга не добавилась в favorites - необходимо для продолжения теста'
+        
+        collector.delete_book_from_favorites(book)
+        assert book not in collector.favorites
+
