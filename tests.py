@@ -76,6 +76,24 @@ class TestBooksCollector:
         
         assert book in collector.get_books_with_specific_genre('Комедии')
 
+    def test_get_books_with_specific_genre_not_return_not_requested_book(self):
+        collector = BooksCollector()
+        book = 'Дневник кота-убийцы'
+        book1 = 'оно'
+
+        collector.add_new_book(book)
+        collector.add_new_book(book1)
+        assert book in collector.books_genre, 'Книга1 не добавилась в books_genre - необходимо для продолжения теста'
+        assert book1 in collector.books_genre, 'Книга2 не добавилась в books_genre - необходимо для продолжения теста'
+        
+        collector.set_book_genre(book, 'Комедии')
+        collector.set_book_genre(book1, 'Ужасы')
+        assert 'Комедии' in collector.books_genre[book] , 'Книге в books_genre не добавился genre - необходимо для продолжения теста'
+        assert 'Ужасы' in collector.books_genre[book1] , 'Книге в books_genre не добавился genre - необходимо для продолжения теста'
+
+        assert book in collector.get_books_with_specific_genre('Комедии'), 'Тест прерван, метод не отработал вывод книг по запрошенному жанру - необходимо для продолжения теста'
+        assert book1 not in collector.get_books_with_specific_genre('Комедии')
+
     def test_get_books_for_children_rait_book(self):
         collector = BooksCollector()
         book = 'Бойцовский клуб'
