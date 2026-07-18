@@ -32,6 +32,15 @@ class TestBooksCollector:
 
         assert collector.get_book_genre('Что делать, если ваш кот хочет вас убить') == genre
 
+    def test_set_genre_not_ganre_list_for_book(self):
+        collector = BooksCollector()
+        genre = 'Синий'
+
+        collector.add_new_book('Что делать, если ваш кот хочет вас убить')
+        collector.set_book_genre('Что делать, если ваш кот хочет вас убить', genre)
+
+        assert genre not in collector.get_book_genre('Что делать, если ваш кот хочет вас убить')
+
     def test_add_book_in_favorites_add_book(self):
         collector = BooksCollector()
 
