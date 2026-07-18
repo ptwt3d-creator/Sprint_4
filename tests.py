@@ -22,7 +22,8 @@ class TestBooksCollector:
 
     # напиши свои тесты ниже
     # чтобы тесты были независимыми в каждом из них создавай отдельный экземпляр класса BooksCollector()
-    def test_add_genre_one_new_book(self):
+    
+    def test_set_genre_one_new_book(self):
         collector = BooksCollector()
         genre = 'Комедии'
 
