@@ -87,3 +87,15 @@ class TestBooksCollector:
         assert collector.books_genre[book] in collector.genre , 'Книге в books_genre не добавился genre - необходимо для продолжения теста'
         
         assert book not in collector.get_books_for_children()
+
+    def test_get_books_for_children_not_rait_book(self):
+        collector = BooksCollector()
+        book = 'Винни-Пух'
+
+        collector.add_new_book(book)
+        assert book in collector.books_genre, 'Книга не добавилась в books_genre - необходимо для продолжения теста'
+
+        collector.set_book_genre(book, 'Комедии')
+        assert collector.books_genre[book] in collector.genre , 'Книге в books_genre не добавился genre - необходимо для продолжения теста'
+        
+        assert book in collector.get_books_for_children()
