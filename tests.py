@@ -64,7 +64,7 @@ class TestBooksCollector:
 
         assert book in collector.get_list_of_favorites_books()
 
-    def test_get_books_with_specific_genre_add_and_get_book(self):
+    def test_get_books_with_specific_genre_return_requested_book(self):
         collector = BooksCollector()
         book = 'Дневник кота-убийцы'
 
