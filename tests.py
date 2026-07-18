@@ -31,3 +31,11 @@ class TestBooksCollector:
 
         assert collector.get_book_genre('Что делать, если ваш кот хочет вас убить') == genre
 
+    def test_add_book_in_favorites_add_book(self):
+        collector = BooksCollector()
+
+        collector.add_new_book('Букварь')
+        collector.add_book_in_favorites('Букварь')
+
+        assert 'Букварь' in collector.favorites
+
