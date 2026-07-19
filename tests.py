@@ -96,25 +96,22 @@ class TestBooksCollector:
 
         assert book in self.collector.get_books_with_specific_genre('Комедии'), 'Тест прерван, метод не отработал вывод книг по запрошенному жанру - необходимо для продолжения теста'
         assert book1 not in self.collector.get_books_with_specific_genre('Комедии')
-
-    def test_get_books_for_children_rait_book(self):
-        book = 'Бойцовский клуб'
-
-        self.collector.add_new_book(book)
-        assert book in self.collector.books_genre, 'Книга не добавилась в books_genre - необходимо для продолжения теста'
-
-        self.collector.set_book_genre(book, 'Детективы')
-        assert 'Детективы' in self.collector.books_genre[book] , 'Книге в books_genre не добавился genre - необходимо для продолжения теста'
-        
-        assert book not in self.collector.get_books_for_children()
-
-    def test_get_books_for_children_not_rait_book(self):
-        book = 'Винни-Пух'
+    
+    @pytest.mark.parametrize(
+        'book, genre, is_child_book',
+        [
+            ('Бойцовский клуб', 'Детективы', False),
+            ('Винни-Пух', 'Комедии', True)
+        ]
+    )
+    def test_get_books_for_children_rate_and_not_rate_book(self, book, genre, is_child_book):
 
         self.collector.add_new_book(book)
-        assert book in self.collector.books_genre, 'Книга не добавилась в books_genre - необходимо для продолжения теста'
+        assert book in self.collector.books_genre , 'Книга не добавилась в books_genre - необходимо для продолжения теста'
 
-        self.collector.set_book_genre(book, 'Комедии')
-        assert 'Комедии' in self.collector.books_genre[book] , 'Книге в books_genre не добавился genre - необходимо для продолжения теста'
+        self.collector.set_book_genre(book, genre)
+        assert genre in self.collector.books_genre[book] , 'Книге в books_genre не добавился genre - необходимо для продолжения теста'
         
-        assert book in self.collector.get_books_for_children()
+        result = book in self.collector.get_books_for_children()
+        assert result == is_child_book
+        
