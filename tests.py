@@ -19,7 +19,7 @@ class TestBooksCollector:
 
         # проверяем, что добавилось именно две
         # словарь books_genre, который нам возвращает метод get_books_genre, имеет длину 2
-        assert len(self.collector.get_books_genre()) == 2
+        assert len(self.collector.books_genre()) == 2
 
     # напиши свои тесты ниже
     # чтобы тесты были независимыми в каждом из них создавай отдельный экземпляр класса BooksCollector()
