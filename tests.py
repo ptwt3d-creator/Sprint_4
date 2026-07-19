@@ -35,7 +35,7 @@ class TestBooksCollector:
         self.collector.add_new_book(book)
         self.collector.set_book_genre(book, genre)
         
-        result = self.collector.get_book_genre(book) == genre
+        result = self.collector.books_genre[book] == genre
         assert result == is_in_list_genre
 
     def test_add_book_in_favorites_add_book(self):
