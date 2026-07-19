@@ -32,7 +32,6 @@ class TestBooksCollector:
         ]
     )
     def test_set_genre_to_book_validation_genre_in_list_and_not_in_list(self, book, genre, is_in_list_genre):
-        
         self.collector.add_new_book(book)
         self.collector.set_book_genre(book, genre)
         
@@ -93,7 +92,6 @@ class TestBooksCollector:
         ]
     )
     def test_get_books_for_children_rate_and_not_rate_book(self, book, genre, is_child_book):
-
         self.collector.add_new_book(book)
         assert book in self.collector.books_genre , 'Книга не добавилась в books_genre - необходимо для продолжения теста'
 
