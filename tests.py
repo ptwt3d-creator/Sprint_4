@@ -68,33 +68,22 @@ class TestBooksCollector:
 
         assert book in self.collector.get_list_of_favorites_books()
 
-    def test_get_books_with_specific_genre_return_requested_book(self):
-        book = 'Дневник кота-убийцы'
-
+    @pytest.mark.parametrize(
+        'book, genre, is_requested',
+        [
+            ('Дневник кота-убийцы', 'Комедии', True),
+            ('оно', 'Ужасы', False)
+        ]
+    )
+    def test_get_books_with_specific_genre_filtering_check_return_requested_and_not_requested_book(self, book, genre, is_requested):
         self.collector.add_new_book(book)
         assert book in self.collector.books_genre, 'Книга не добавилась в books_genre - необходимо для продолжения теста'
 
-        self.collector.set_book_genre(book, 'Комедии')
-        assert 'Комедии' in self.collector.books_genre[book] , 'Книге в books_genre не добавился genre - необходимо для продолжения теста'
+        self.collector.set_book_genre(book, genre)
+        assert genre in self.collector.books_genre[book] , 'Книге в books_genre не добавился genre - необходимо для продолжения теста'
         
-        assert book in self.collector.get_books_with_specific_genre('Комедии')
-
-    def test_get_books_with_specific_genre_not_return_not_requested_book(self):
-        book = 'Дневник кота-убийцы'
-        book1 = 'оно'
-
-        self.collector.add_new_book(book)
-        self.collector.add_new_book(book1)
-        assert book in self.collector.books_genre, 'Книга1 не добавилась в books_genre - необходимо для продолжения теста'
-        assert book1 in self.collector.books_genre, 'Книга2 не добавилась в books_genre - необходимо для продолжения теста'
-        
-        self.collector.set_book_genre(book, 'Комедии')
-        self.collector.set_book_genre(book1, 'Ужасы')
-        assert 'Комедии' in self.collector.books_genre[book] , 'Книге в books_genre не добавился genre - необходимо для продолжения теста'
-        assert 'Ужасы' in self.collector.books_genre[book1] , 'Книге в books_genre не добавился genre - необходимо для продолжения теста'
-
-        assert book in self.collector.get_books_with_specific_genre('Комедии'), 'Тест прерван, метод не отработал вывод книг по запрошенному жанру - необходимо для продолжения теста'
-        assert book1 not in self.collector.get_books_with_specific_genre('Комедии')
+        result = book in self.collector.get_books_with_specific_genre('Комедии')
+        assert result == is_requested
     
     @pytest.mark.parametrize(
         'book, genre, is_child_book',
