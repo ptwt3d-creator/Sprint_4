@@ -47,9 +47,13 @@ class TestBooksCollector:
         result = self.collector.get_book_genre(book) == genre
         assert result == is_in_list_genre
 
-    def test_add_book_in_favorites_add_book(self, favorite_book):
+    def test_add_book_in_favorites_add_book(self):
+        book = 'Букварь'
 
-        assert favorite_book in self.collector.get_list_of_favorites_books()
+        self.collector.add_new_book(book)
+        self.collector.add_book_in_favorites(book)
+        
+        assert book in self.collector.get_list_of_favorites_books()
 
     def test_delete_book_from_favorites_add_and_del_book(self, favorite_book):
         
