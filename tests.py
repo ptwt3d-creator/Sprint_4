@@ -33,19 +33,19 @@ class TestBooksCollector:
     # чтобы тесты были независимыми в каждом из них создавай отдельный экземпляр класса BooksCollector()
     
     @pytest.mark.parametrize(
-        'book, genre, is_in_list_genre',
+        'book, genre, expected_genre',
         [
-            ('Что делать, если ваш кот хочет вас убить', 'Комедии', True),
-            ('Что делать, если ваш кот хочет вас убить', 'Синий', False)
+            ('Что делать, если ваш кот хочет вас убить', 'Комедии', 'Комедии'),
+            ('Что делать, если ваш кот хочет вас убить', 'Синий', '')
         ]
     )
-    def test_set_genre_to_book_validation_genre_in_list_and_not_in_list(self, book, genre, is_in_list_genre):
+    def test_set_genre_to_book_validation_genre_in_list_and_not_in_list(self, book, genre, expected_genre):
         
         self.collector.add_new_book(book)
+        
         self.collector.set_book_genre(book, genre)
         
-        result = self.collector.get_book_genre(book) == genre
-        assert result == is_in_list_genre
+        assert self.collector.get_book_genre(book) == expected_genre
 
     def test_add_book_in_favorites_add_book(self):
         book = 'Букварь'
