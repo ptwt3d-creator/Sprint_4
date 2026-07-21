@@ -7,6 +7,15 @@ class TestBooksCollector:
     @pytest.fixture(autouse=True)
     def collector_book(self):
         self.collector = BooksCollector()
+
+    @pytest.fixture
+    def favorite_book(self):
+        book_in_favorites = 'Букварь'
+
+        self.collector.add_new_book(book_in_favorites)
+        self.collector.add_book_in_favorites(book_in_favorites)
+
+        return book_in_favorites
     # пример теста:
     # обязательно указывать префикс test_
     # дальше идет название метода, который тестируем add_new_book_
@@ -38,33 +47,19 @@ class TestBooksCollector:
         result = self.collector.get_book_genre(book) == genre
         assert result == is_in_list_genre
 
-    def test_add_book_in_favorites_add_book(self):
+    def test_add_book_in_favorites_add_book(self, favorite_book):
+
+        assert favorite_book in self.collector.get_list_of_favorites_books()
+
+    def test_delete_book_from_favorites_add_and_del_book(self, favorite_book):
         
-        book = 'Букварь'
+        self.collector.delete_book_from_favorites(favorite_book)
 
-        self.collector.add_new_book(book)
-        self.collector.add_book_in_favorites(book)
+        assert favorite_book not in self.collector.get_list_of_favorites_books()
 
-        assert book in self.collector.get_list_of_favorites_books()
+    def test_get_list_of_favorites_books_add_and_get_book(self, favorite_book):
 
-    def test_delete_book_from_favorites_add_and_del_book(self):
-        
-        book = 'Букварь'
-
-        self.collector.add_new_book(book)
-        self.collector.add_book_in_favorites(book)
-        self.collector.delete_book_from_favorites(book)
-
-        assert book not in self.collector.get_list_of_favorites_books()
-
-    def test_get_list_of_favorites_books_add_and_get_book(self):
-        
-        book = 'Букварь2.0'
-
-        self.collector.add_new_book(book)
-        self.collector.add_book_in_favorites(book)
-
-        assert book in self.collector.get_list_of_favorites_books()
+        assert favorite_book in self.collector.get_list_of_favorites_books()
 
     @pytest.mark.parametrize(
         'book, genre, is_requested',
