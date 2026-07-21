@@ -100,4 +100,15 @@ class TestBooksCollector:
         
         result = book in self.collector.get_books_for_children()
         assert result == is_child_book
-        
+
+    def test_get_book_genre_add_book_set_get_genre(self):
+        book ='Десять негритят'
+        genre = 'Детективы'
+
+        self.collector.add_new_book(book)
+        assert book in self.collector.books_genre , 'Книга не добавилась в books_genre - необходимо для продолжения теста'
+
+        self.collector.set_book_genre(book, genre)
+        assert genre in self.collector.books_genre[book] , 'Книге в books_genre не добавился genre - необходимо для продолжения теста'
+
+        assert genre == self.collector.get_book_genre(book)
