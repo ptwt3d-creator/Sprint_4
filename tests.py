@@ -42,7 +42,6 @@ class TestBooksCollector:
     def test_set_genre_to_book_validation_genre_in_list_and_not_in_list(self, book, genre, expected_genre):
         
         self.collector.add_new_book(book)
-        
         self.collector.set_book_genre(book, genre)
         
         assert self.collector.get_book_genre(book) == expected_genre
@@ -69,7 +68,7 @@ class TestBooksCollector:
         'book, genre, is_requested',
         [
             ('Дневник кота-убийцы', 'Комедии', True),
-            ('оно', 'Ужасы', False)
+            ('Оно', 'Ужасы', False)
         ]
     )
     def test_get_books_with_specific_genre_filtering_check_return_requested_and_not_requested_book(self, book, genre, is_requested):
@@ -103,7 +102,7 @@ class TestBooksCollector:
         self.collector.add_new_book(book)
         self.collector.set_book_genre(book, genre)
 
-        assert genre == self.collector.get_book_genre(book)
+        assert self.collector.get_book_genre(book) == genre
 
     def test_get_books_genre_add_book_get_list_book_genre(self):
         self.collector.add_new_book('Федотов, заверните кота!')
