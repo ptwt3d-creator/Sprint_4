@@ -3,7 +3,7 @@ import pytest
 # класс TestBooksCollector объединяет набор тестов, которыми мы покрываем наше приложение BooksCollector
 # обязательно указывать префикс Test
 class TestBooksCollector:
-    
+
     # пример теста:
     # обязательно указывать префикс test_
     # дальше идет название метода, который тестируем add_new_book_
@@ -103,4 +103,23 @@ class TestBooksCollector:
         collector.add_new_book('Федотов, заверните кота!')
 
         assert 'Федотов, заверните кота!' in collector.get_books_genre()
-        
+
+    @pytest.mark.parametrize(
+        'name_book, expected_result',
+        [
+            ('A' * 50, False),
+            ('A' * 20, True),
+            ('', False),
+            ('A', True),
+            ('A' * 39, True),
+            ('A' * 40, True),
+            ('A' * 41, False),
+            ('A' * 42, False)
+        ]    
+    )
+    def test_add_new_book_name_len_validation(self, collector, name_book, expected_result):
+        collector.add_new_book(name_book)
+
+        result = name_book in collector.get_books_genre()
+        assert result == expected_result
+
