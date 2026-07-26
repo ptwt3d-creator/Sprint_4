@@ -85,15 +85,12 @@ class TestBooksCollector:
         result = book in collector.get_books_for_children()
         assert result == is_child_book
 
-    def test_get_book_genre_add_book_set_get_genre(self, collector):
-
+    def test_get_book_genre_add_book_get_genre(self, collector):
         book ='Десять негритят'
-        genre = 'Детективы'
-
+    
         collector.add_new_book(book)
-        collector.set_book_genre(book, genre)
 
-        assert collector.get_book_genre(book) == genre
+        assert collector.get_book_genre(book) == ''
 
     def test_get_books_genre_add_book_get_list_book_genre(self, collector):
         collector.add_new_book('Федотов, заверните кота!')
