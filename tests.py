@@ -123,3 +123,11 @@ class TestBooksCollector:
         result = name_book in collector.get_books_genre()
         assert result == expected_result
 
+    def test_add_new_book_add_two_identical(self, collector):
+        book = 'Просто книга'
+
+        collector.add_new_book(book)
+        collector.add_new_book(book)
+
+        assert len(collector.get_books_genre()) == 1
+
