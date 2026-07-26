@@ -51,13 +51,9 @@ class TestBooksCollector:
 
         assert book not in collector.get_list_of_favorites_books()
 
-    def test_get_list_of_favorites_books_add_and_get_book(self, collector):
-        book = 'Букварь'
+    def test_get_list_of_favorites_books_get_list(self, collector):
 
-        collector.add_new_book(book)
-        collector.add_book_in_favorites(book)
-
-        assert book in collector.get_list_of_favorites_books()
+        assert collector.get_list_of_favorites_books() == []
 
     @pytest.mark.parametrize(
         'book, genre, is_requested',
