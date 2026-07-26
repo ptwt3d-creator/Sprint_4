@@ -20,11 +20,13 @@
 
 - `test_get_books_genre_add_book_get_list_book_genre`
 
+- `test_add_new_book_name_len_validation`
+
+- `test_add_new_book_add_two_identical`
+
 ## Перечень фикстур
 
 - `collector_book`
-
-- `favorite_book`
 
 ## Описание тестов
 
@@ -45,6 +47,10 @@
 - `test_get_book_genre_add_book_set_get_genre` - Проверка получения жанра по названию книги.
 
 - `test_get_books_genre_add_book_get_list_book_genre` - Проверка вывода списка книг.
+
+- `test_add_new_book_name_len_validation` - Валидация длины имени книги 0 - 42 символа.
+
+- `test_add_new_book_add_two_identical` - Проверка, что дубликаты книг не добавляются в коллекцию повторно.
 
 ## Описание фикстур
 
